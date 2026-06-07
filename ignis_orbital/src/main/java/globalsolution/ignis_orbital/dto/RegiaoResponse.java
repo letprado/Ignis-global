@@ -1,5 +1,6 @@
 package globalsolution.ignis_orbital.dto;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import globalsolution.ignis_orbital.entity.Bioma;
 import org.springframework.hateoas.RepresentationModel;
 import org.springframework.hateoas.server.core.Relation;
@@ -8,10 +9,15 @@ import org.springframework.hateoas.server.core.Relation;
 public class RegiaoResponse extends RepresentationModel<RegiaoResponse> {
 
     private Long id;
+    @JsonProperty("nm_regiao")
     private String nmRegiao;
+    @JsonProperty("ds_bioma")
     private Bioma dsBioma;
+    @JsonProperty("nr_criticidade_base")
     private Integer nrCriticidadeBase;
+    @JsonProperty("sg_uf")
     private String sgUf;
+    @JsonProperty("indice_monitoramento")
     private Double indiceMonitoramento;
 
     public Long getId() { return id; }

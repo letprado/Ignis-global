@@ -81,8 +81,7 @@ public class AlertaService {
                 alerta.getDsRisco(),
                 alerta.getDsStatus(),
                 alerta.getDtCaptura(),
-                alerta.getNrLatitude(),
-                alerta.getNrLongitude(),
+                new AlertaResponse.Coordenadas(alerta.getNrLatitude(), alerta.getNrLongitude()),
                 alerta.getSatelite().getNmSatelite()
         );
     }

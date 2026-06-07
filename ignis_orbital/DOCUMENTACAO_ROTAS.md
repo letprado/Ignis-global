@@ -181,11 +181,11 @@ Resposta:
     "regioes": [
       {
         "id": 1,
-        "nmRegiao": "Pantanal Sul",
-        "dsBioma": "PANTANAL",
-        "nrCriticidadeBase": 8,
-        "sgUf": "MS",
-        "indiceMonitoramento": null,
+        "nm_regiao": "Pantanal Sul",
+        "ds_bioma": "PANTANAL",
+        "nr_criticidade_base": 8,
+        "sg_uf": "MS",
+        "indice_monitoramento": null,
         "_links": {
           "self": { "href": "http://localhost:8080/api/regioes/1" }
         }
@@ -210,18 +210,17 @@ Cria região.
 
 ```json
 {
-  "nmRegiao": "Pantanal Sul",
-  "dsBioma": "PANTANAL",
-  "nrCriticidadeBase": 8,
-  "sgUf": "MS"
+  "nm_regiao": "Pantanal Sul",
+  "ds_bioma": "PANTANAL",
+  "nr_criticidade_base": 8
 }
 ```
 
 Campos:
-- `nmRegiao`: nome da área
-- `dsBioma`: bioma
-- `nrCriticidadeBase`: número de 1 a 10
-- `sgUf`: UF do estado
+- `nm_regiao`: nome da área
+- `ds_bioma`: bioma
+- `nr_criticidade_base`: número de 1 a 10
+- `sg_uf`: UF opcional. Se omitida, a API infere uma UF padrão pelo bioma.
 
 Biomas aceitos:
 
@@ -240,10 +239,9 @@ Atualiza região.
 
 ```json
 {
-  "nmRegiao": "Pantanal Sul Atualizado",
-  "dsBioma": "PANTANAL",
-  "nrCriticidadeBase": 9,
-  "sgUf": "MS"
+  "nm_regiao": "Pantanal Sul Atualizado",
+  "ds_bioma": "PANTANAL",
+  "nr_criticidade_base": 9
 }
 ```
 
@@ -301,14 +299,16 @@ Resposta:
 ```json
 [
   {
-    "id": 1,
-    "regiao": "Amazonia Central",
+    "id_alerta": 1,
+    "regiao_nome": "Amazonia Central",
     "temperatura": 48.5,
     "risco": "ALTO",
     "status": "DETECTADO",
-    "dataCaptura": "2026-05-01T14:22:00",
-    "latitude": -3.4653,
-    "longitude": -62.2159,
+    "data_captura": "2026-05-01T14:22:00",
+    "coordenadas": {
+      "latitude": -3.4653,
+      "longitude": -62.2159
+    },
     "satelite": "NOAA-20"
   }
 ]
@@ -461,3 +461,13 @@ Resposta em modo offline (sem chave configurada):
 8. `GET /api/telemetria/pendentes`
 9. `POST /api/telemetria/{id}/processar`
 10. `POST /api/ai/consultar`
+
+---
+
+## Equipe
+
+| Nome | RM | Responsabilidade |
+|------|----|------------------|
+| Letícia Sousa Prado | 559258 | Java Advanced — API REST, banco de dados, deploy |
+| Jennyfer Lee | 561020 | .NET e IoT |
+| Ivanildo Alfredo | 560049 | Mobile (frontend), QA e DevOps |

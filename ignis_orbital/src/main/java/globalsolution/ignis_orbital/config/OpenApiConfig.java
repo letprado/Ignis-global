@@ -24,7 +24,7 @@ public class OpenApiConfig {
                         .title("Ignis Orbital API")
                         .description("Microsservico de monitoramento de queimadas via telemetria satelital")
                         .version("1.0.0")
-                        .contact(new Contact().name("Global Solution - FIAP").email("contato@ignis.com")))
+                        .contact(new Contact().name("Letícia Sousa Prado (RM 559258) - Squad Ignis Orbital")))
                 .addSecurityItem(new SecurityRequirement().addList("Bearer Authentication"))
                 .components(new Components()
                         .addSecuritySchemes("Bearer Authentication",

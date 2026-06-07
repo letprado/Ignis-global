@@ -2,6 +2,7 @@ package globalsolution.ignis_orbital.service;
 
 import globalsolution.ignis_orbital.dto.RegiaoRequest;
 import globalsolution.ignis_orbital.dto.RegiaoResponse;
+import globalsolution.ignis_orbital.entity.Bioma;
 import globalsolution.ignis_orbital.entity.Regiao;
 import globalsolution.ignis_orbital.exception.RecursoNaoEncontradoException;
 import globalsolution.ignis_orbital.repository.AlertaRepository;
@@ -42,7 +43,7 @@ public class RegiaoService {
                 .nmRegiao(request.nmRegiao())
                 .dsBioma(request.dsBioma())
                 .nrCriticidadeBase(request.nrCriticidadeBase())
-                .sgUf(request.sgUf().toUpperCase())
+                .sgUf(resolverUf(request.sgUf(), request.dsBioma()))
                 .build();
         return toResponseSimples(regiaoRepository.save(regiao));
     }
@@ -54,7 +55,7 @@ public class RegiaoService {
         regiao.setNmRegiao(request.nmRegiao());
         regiao.setDsBioma(request.dsBioma());
         regiao.setNrCriticidadeBase(request.nrCriticidadeBase());
-        regiao.setSgUf(request.sgUf().toUpperCase());
+        regiao.setSgUf(resolverUf(request.sgUf(), request.dsBioma()));
         return toResponseSimples(regiaoRepository.save(regiao));
     }
 
@@ -87,5 +88,20 @@ public class RegiaoService {
         response.setNrCriticidadeBase(regiao.getNrCriticidadeBase());
         response.setSgUf(regiao.getSgUf());
         return response;
+    }
+
+    private String resolverUf(String sgUf, Bioma bioma) {
+        if (sgUf != null && !sgUf.isBlank()) {
+            return sgUf.toUpperCase();
+        }
+
+        return switch (bioma) {
+            case AMAZONIA -> "AM";
+            case CERRADO -> "GO";
+            case PANTANAL -> "MS";
+            case MATA_ATLANTICA -> "SP";
+            case CAATINGA -> "CE";
+            case PAMPA -> "RS";
+        };
     }
 }

@@ -2,6 +2,14 @@
 
 Microsservico Spring Boot para monitoramento de queimadas via telemetria satelital, integrado ao Oracle Database do ecossistema Ignis Orbital.
 
+## Equipe
+
+| Nome | RM | Responsabilidade |
+|------|----|------------------|
+| Letícia Sousa Prado | 559258 | Java Advanced — API REST, banco de dados, deploy |
+| Jennyfer Lee | 561020 | .NET e IoT |
+| Ivanildo Alfredo | 560049 | Mobile (frontend), QA e DevOps |
+
 ## Stack
 
 - Java 21 + Spring Boot 3.4
