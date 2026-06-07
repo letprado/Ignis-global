@@ -40,9 +40,19 @@ Em **Variables**, adicione:
 | `OPENAI_API_KEY` | sua chave OpenAI com crédito | opcional |
 | `AI_CHAT` | `openai` (só se for usar IA) | opcional |
 | `MESSAGING_ENABLED` | `false` | recomendado |
-| `CORS_ORIGINS` | URL do seu front (se houver) | opcional |
+| `CORS_ORIGINS` | URLs liberadas para navegador, separadas por vírgula | recomendado |
+| `OPENAPI_SERVER_URL` | URL pública HTTPS do backend | recomendado |
 
 > Não defina `PORT` manualmente — o Railway injeta automaticamente, e a aplicação já lê `server.port=${PORT:8080}`.
+
+Para este deploy, use:
+
+```text
+CORS_ORIGINS=https://ignis-global-production.up.railway.app,http://localhost:3000,http://localhost:5173
+OPENAPI_SERVER_URL=https://ignis-global-production.up.railway.app
+```
+
+Isso evita que o Swagger gere requisições em `http://...` quando a aplicação está atrás do proxy HTTPS do Railway.
 
 ## Passo 4 - Gerar o domínio público
 

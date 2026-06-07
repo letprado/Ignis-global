@@ -6,15 +6,20 @@ import io.swagger.v3.oas.models.info.Contact;
 import io.swagger.v3.oas.models.info.Info;
 import io.swagger.v3.oas.models.security.SecurityRequirement;
 import io.swagger.v3.oas.models.security.SecurityScheme;
+import io.swagger.v3.oas.models.servers.Server;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class OpenApiConfig {
 
+    @Value("${ignis.openapi.server-url:}")
+    private String serverUrl;
+
     @Bean
     OpenAPI ignisOpenApi() {
-        return new OpenAPI()
+        OpenAPI openAPI = new OpenAPI()
                 .info(new Info()
                         .title("Ignis Orbital API")
                         .description("Microsservico de monitoramento de queimadas via telemetria satelital")
@@ -27,5 +32,11 @@ public class OpenApiConfig {
                                         .type(SecurityScheme.Type.HTTP)
                                         .scheme("bearer")
                                         .bearerFormat("JWT")));
+
+        if (!serverUrl.isBlank()) {
+            openAPI.addServersItem(new Server().url(serverUrl));
+        }
+
+        return openAPI;
     }
 }
