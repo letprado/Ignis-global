@@ -6,6 +6,7 @@ import globalsolution.ignis_orbital.service.AlertaService;
 import globalsolution.ignis_orbital.service.ClimaContextoService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import io.swagger.v3.oas.annotations.security.SecurityRequirements;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -26,13 +27,15 @@ public class AlertaController {
     private final ClimaContextoService climaContextoService;
 
     @GetMapping
-    @Operation(summary = "Listar alertas de focos de calor detectados")
+    @Operation(summary = "Listar alertas de focos de calor detectados (rota publica)")
+    @SecurityRequirements
     public List<AlertaResponse> listar() {
         return alertaService.listarTodos();
     }
 
     @GetMapping("/{id}")
-    @Operation(summary = "Buscar alerta por ID")
+    @Operation(summary = "Buscar alerta por ID (rota publica)")
+    @SecurityRequirements
     public AlertaResponse buscarPorId(@PathVariable Long id) {
         return alertaService.buscarPorId(id);
     }
