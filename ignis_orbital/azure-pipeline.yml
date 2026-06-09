@@ -1,0 +1,34 @@
+trigger:
+  branches:
+    include:
+      - [cite_start]main # Roda automaticamente a cada commit/merge na main
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+steps:
+  # 1. Configurar o Java 21
+  - task: JavaToolInstaller@1
+    displayName: 'Configurar Java 21'
+    inputs:
+      versionSpec: '21'
+      jdkArchitecture: 'x64'
+      jdkSourceOption: 'PreInstalled'
+
+  # 2. Compilar o código e gerar o arquivo .jar
+  - task: Maven@4
+    displayName: 'Build e Pacote (Maven)'
+    inputs:
+      mavenPomFile: 'pom.xml'
+      goals: 'clean package -DskipTests'
+      publishJUnitResults: true
+      [cite_start]testResultsFiles: '**/surefire-reports/TEST-*.xml'
+
+  # 3. Fazer o Deploy Direto no Web App da Azure
+  - task: AzureWebApp@1
+    displayName: 'Deploy Automático na Azure'
+    inputs:
+      azureSubscription: 'sc-azure-connection' # Nome da sua Service Connection no Azure DevOps
+      appType: 'webAppLinux'
+      appName: 'api-ignis-orbital-app'
+      package: '$(System.DefaultWorkingDirectory)/**/target/*.jar'
