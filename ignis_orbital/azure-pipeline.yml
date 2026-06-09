@@ -22,7 +22,10 @@ steps:
       mavenPomFile: 'pom.xml'
       goals: 'clean package -DskipTests'
       publishJUnitResults: true
-      [cite_start]testResultsFiles: '**/surefire-reports/TEST-*.xml'
+      testResultsFiles: '**/surefire-reports/TEST-*.xml'
+      javaHomeOption: 'JDKVersion'
+      jdkVersionOption: '1.21' 
+      jdkArchitectureOption: 'x64'
 
   # 3. Fazer o Deploy Direto no Web App da Azure
   - task: AzureWebApp@1
