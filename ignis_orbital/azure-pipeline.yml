@@ -1,37 +1,46 @@
 trigger:
   branches:
     include:
-      - [cite_start]main # Roda automaticamente a cada commit/merge na main
+      - main
 
 pool:
   vmImage: 'ubuntu-latest'
 
 steps:
-  # 1. Configurar o Java 21
-  - task: JavaToolInstaller@1
-    displayName: 'Configurar Java 21'
-    inputs:
-      versionSpec: '21'
-      jdkArchitecture: 'x64'
-      jdkSourceOption: 'PreInstalled'
+- task: JavaToolInstaller@1
+  displayName: 'Configurar Java 21'
+  inputs:
+    versionSpec: '21'
+    jdkArchitecture: 'x64'
+    jdkSourceOption: 'PreInstalled'
 
-  # 2. Compilar o código e gerar o arquivo .jar
-  - task: Maven@4
-    displayName: 'Build e Pacote (Maven)'
-    inputs:
-      mavenPomFile: 'pom.xml'
-      goals: 'clean package -DskipTests'
-      publishJUnitResults: true
-      testResultsFiles: '**/surefire-reports/TEST-*.xml'
-      javaHomeOption: 'JDKVersion'
-      jdkVersionOption: '1.21' 
-      jdkArchitectureOption: 'x64'
+- task: Maven@4
+  displayName: 'Build e Pacote (Maven)'
+  inputs:
+    mavenPomFile: 'ignis_orbital/pom.xml'
+    mavenOptions: '-Xmx3072m'
+    testResultsFiles: '**/surefire-reports/TEST-*.xml'
+    javaHomeOption: 'JDKVersion'
+    jdkVersionOption: '1.21' 
+    jdkArchitectureOption: 'x64'
+    publishJUnitResults: false
+    goals: 'clean package -DskipTests'
 
-  # 3. Fazer o Deploy Direto no Web App da Azure
-  - task: AzureWebApp@1
-    displayName: 'Deploy Automático na Azure'
-    inputs:
-      azureSubscription: 'sc-azure-connection' # Nome da sua Service Connection no Azure DevOps
-      appType: 'webAppLinux'
-      appName: 'api-ignis-orbital-app'
-      package: '$(System.DefaultWorkingDirectory)/**/target/*.jar'
+- script: |
+    echo "Arquivos gerados:"
+    find . -name "*.jar"
+  displayName: 'Listar JARs gerados'
+
+- task: CopyFiles@2
+  displayName: 'Copiar o pacote gerado (.jar)'
+  inputs:
+    SourceFolder: '$(System.DefaultWorkingDirectory)'
+    Contents: '**/target/*.jar'
+    TargetFolder: '$(Build.ArtifactStagingDirectory)'
+
+- task: PublishBuildArtifacts@1
+  displayName: 'Publicar o Artefato (Drop)'
+  inputs:
+    PathtoPublish: '$(build.artifactstagingdirectory)'
+    ArtifactName: 'drop'
+    publishLocation: 'Container'
