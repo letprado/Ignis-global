@@ -31,6 +31,11 @@ steps:
     find . -name "*.jar"
   displayName: 'Listar JARs gerados'
 
+- script: |
+    echo "PIPELINE YAML EXECUTADA"
+    echo "SKIP TESTS ATIVO"
+  displayName: 'Diagnóstico'
+
 - task: CopyFiles@2
   displayName: 'Copiar o pacote gerado (.jar)'
   inputs:
