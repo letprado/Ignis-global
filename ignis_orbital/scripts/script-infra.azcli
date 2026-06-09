@@ -1,0 +1,42 @@
+#!/bin/bash
+
+# =========================================================================
+# FIAP - GLOBAL SOLUTION 2026
+# DISCIPLINA: DEVOPS TOOLS & CLOUD COMPUTING
+# SCRIPT DE INFRAESTRUTURA COMO CÓDIGO (IaC) - PROVISIONAMENTO EM NUVEM
+# =========================================================================
+
+# NOTA: Se executado no Azure Cloud Shell (Bash), o login já é automático.
+# Caso execute localmente no terminal do PC, descomente a linha abaixo:
+# az login
+
+echo "Iniciando o provisionamento da infraestrutura do Ignis Orbital..."
+
+# 1. Definição de Variáveis (Organização e Padronização)
+RESOURCE_GROUP="rg-ignis-orbital"
+LOCATION="eastus"
+APP_PLAN="plan-ignis-orbital"
+WEB_APP_NAME="api-ignis-orbital-app"
+
+# 2. Criação do Resource Group (Grupo de Recursos)
+echo "Criando o Grupo de Recursos: $RESOURCE_GROUP..."
+az group create --name $RESOURCE_GROUP --location $LOCATION
+
+# 3. Criação do App Service Plan (Plano de Serviço em Linux - Camada F1 Gratuita)
+echo "Criando o App Service Plan: $APP_PLAN..."
+az appservice plan create \
+    --name $APP_PLAN \
+    --resource-group $RESOURCE_GROUP \
+    --sku F1 \
+    --is-linux
+
+# 4. Criação do Web App (Hospedagem da API configurada nativamente para Java 21)
+echo "Criando o Web App PaaS: $WEB_APP_NAME com Java 21..."
+az webapp create \
+    --resource-group $RESOURCE_GROUP \
+    --plan $APP_PLAN \
+    --name $WEB_APP_NAME \
+    --runtime "JAVA|21-java21"
+
+echo "Infraestrutura provisionada com sucesso!"
+echo "URL Oficial da Aplicação: https://$WEB_APP_NAME.azurewebsites.net"
