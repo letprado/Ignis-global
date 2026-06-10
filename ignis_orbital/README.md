@@ -8,7 +8,9 @@ Microsservico Spring Boot para monitoramento de queimadas via telemetria satelit
 |------|----|------------------|
 | Letícia Sousa Prado | 559258 | Java Advanced — API REST, banco de dados, deploy |
 | Jennyfer Lee | 561020 | .NET e IoT |
-| Ivanildo Alfredo | 560049 | Mobile (frontend), QA e DevOps |
+| Ivanildo Alfredo | 560049 | Mobile (frontend) e DevOps |
+| Paulo Neto | 560262 | QA
+
 
 ## Stack
 
