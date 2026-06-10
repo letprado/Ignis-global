@@ -47,21 +47,13 @@ Apresentacao das rotas e explicacao da solucao no YouTube:
 
 ## Configuracao
 
-A conexao Oracle FIAP ja vem como padrao em `application.properties`:
-
-```properties
-spring.datasource.url=jdbc:oracle:thin:@oracle.fiap.com.br:1521:orcl
-spring.datasource.username=rm559258
-spring.datasource.password=170904
-```
-
-Para sobrescrever em outra maquina, use variaveis de ambiente:
+As credenciais e segredos nao ficam no codigo: sao lidos de variaveis de ambiente. Defina-as antes de executar (no Railway ja estao configuradas no servico):
 
 ```bash
 ORACLE_URL=jdbc:oracle:thin:@oracle.fiap.com.br:1521:orcl
-ORACLE_USER=rm559258
-ORACLE_PASSWORD=170904
-JWT_SECRET=chave-secreta-com-pelo-menos-32-caracteres
+ORACLE_USER=SEU_USUARIO_ORACLE
+ORACLE_PASSWORD=SUA_SENHA_ORACLE
+JWT_SECRET=defina-uma-chave-secreta-com-no-minimo-32-caracteres
 MESSAGING_ENABLED=true
 OPENAI_API_KEY=sk-...
 ```
