@@ -16,7 +16,7 @@ A pipeline foi construída utilizando o **Azure DevOps** com a abordagem de conf
 
 Para visualizar o funcionamento completo da aplicação, incluindo execução da API, integração com banco de dados Oracle, pipeline CI/CD e deploy na nuvem Azure, acesse:
 
-**🔗 Vídeo no YouTube:** [Insira o link do seu vídeo aqui, ex: https://youtu.be/...]
+**🔗 Vídeo no YouTube:** [https://youtu.be/TTgom_rzO0I]
 
 ---
 
