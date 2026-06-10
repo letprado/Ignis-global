@@ -6,6 +6,7 @@ import globalsolution.ignis_orbital.repository.UsuarioRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.dao.DataAccessException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
@@ -21,16 +22,20 @@ public class DataInitializer implements CommandLineRunner {
 
     @Override
     public void run(String... args) {
-        if (!usuarioRepository.existsByEmail("admin@ignis.com")) {
-            Usuario admin = Usuario.builder()
-                    .nome("Admin")
-                    .email("admin@ignis.com")
-                    .senhaHash(passwordEncoder.encode("123"))
-                    .perfil(PerfilUsuario.ADMIN)
-                    .dtCadastro(LocalDateTime.now())
-                    .build();
-            usuarioRepository.save(admin);
-            log.info("Usuario admin@ignis.com criado com senha 123");
+        try {
+            if (!usuarioRepository.existsByEmail("admin@ignis.com")) {
+                Usuario admin = Usuario.builder()
+                        .nome("Admin")
+                        .email("admin@ignis.com")
+                        .senhaHash(passwordEncoder.encode("123"))
+                        .perfil(PerfilUsuario.ADMIN)
+                        .dtCadastro(LocalDateTime.now())
+                        .build();
+                usuarioRepository.save(admin);
+                log.info("Usuario admin@ignis.com criado com senha 123");
+            }
+        } catch (DataAccessException ex) {
+            log.warn("Nao foi possivel validar/criar o usuario admin inicial. A aplicacao continuara subindo.", ex);
         }
     }
 }
