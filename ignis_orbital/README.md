@@ -11,7 +11,6 @@ Microsservico Spring Boot para monitoramento de queimadas via telemetria satelit
 | Ivanildo Alfredo | 560049 | Mobile (frontend) e DevOps |
 | Paulo Neto | 560262 | QA
 
-
 ## Stack
 
 - Java 21 + Spring Boot 3.4
@@ -22,12 +21,29 @@ Microsservico Spring Boot para monitoramento de queimadas via telemetria satelit
 - OpenFeign (Open-Meteo)
 - Spring AI (Tooling + assistente conversacional)
 
+## Acesso da API
+
+A aplicacao esta publicada e em execucao no Railway, nao sendo necessario rodar localmente para testar a API:
+
+- API base: https://ignis-global-production.up.railway.app
+- Swagger (documentacao interativa): https://ignis-global-production.up.railway.app/swagger-ui/index.html
+
+Caso seja necessario executar o projeto localmente, a API fica disponivel em:
+
+- API local: http://localhost:8080
+- Swagger local: http://localhost:8080/swagger-ui.html
+
+## Video de demonstracao
+
+Apresentacao das rotas e explicacao da solucao no YouTube:
+
+- https://youtu.be/_LTYmmdnvNM
+
 ## Pre-requisitos
 
-1. Oracle FIAP com os scripts em `Banco de Dados/entrega-portal/sql/` executados no schema do aluno
-2. Java 21 e Maven
-3. Docker (para subir o RabbitMQ da mensageria)
-4. (Opcional) `OPENAI_API_KEY` para Spring AI completo
+1. Java 21 e Maven
+2. Docker (para subir o RabbitMQ da mensageria)
+3. (Opcional) `OPENAI_API_KEY` para Spring AI completo
 
 ## Configuracao
 
